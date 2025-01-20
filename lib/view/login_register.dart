@@ -167,7 +167,9 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
                   Get.back();
                 }
               }
-              Get.to(Withdraw());
+              if (isLogin) {
+                Get.to(Withdraw());
+              }
             },
             child: const Text(
               'Sign In',

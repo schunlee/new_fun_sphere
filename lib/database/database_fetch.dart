@@ -238,4 +238,11 @@ class TaskDbHelper {
     var res = await db.delete(table);
     return res;
   }
+
+  //delete by id
+  Future<int> deleteTask(int id) async {
+    Database db = await instance.database;
+    var res = await db.delete(table, where: "id = ?", whereArgs: [id]);
+    return res;
+  }
 }

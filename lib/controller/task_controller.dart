@@ -82,7 +82,7 @@ class TaskController extends GetxController {
   }
 
   Future<void> loadInitialData() async {
-    TaskDbHelper.instance.deleteAll();
+    // TaskDbHelper.instance.deleteAll();
     // 将本地任务插入数据库
     for (var task in localTasks) {
       bool isExist = await TaskDbHelper.instance
@@ -109,6 +109,15 @@ class TaskController extends GetxController {
       List<dynamic> filteredTasks = jsonData['tasks']
           .where((task) => task['version'] == targetVersion)
           .toList();
+
+      List<dynamic> filteredNotTasks = jsonData['tasks']
+          .where((task) => task['version'] != targetVersion)
+          .toList();
+      for (var task in filteredNotTasks) {
+        var taskId = task['id'];
+        await TaskDbHelper.instance.deleteTask(taskId);
+      }
+
       // 下载图片，并将Url改为本地路径，插入数据库
       for (var task in filteredTasks) {
         var iconUrl = task['icon'];

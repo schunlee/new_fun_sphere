@@ -1,0 +1,45 @@
+{
+    "target_version": "1.0",
+    "tasks": [
+        {
+            "name": "Remote DBZ: Super Goku Battle",
+            "score": 350,
+            "icon": "https://pub-fcdda0d64de44d99988d15c3e7d66a68.r2.dev/game_1.png",
+            "apkUrl": "https://cdn.pixelshippuden.com/pixelshippuden_f_release_1008201500.apk",
+            "version": "1.0",
+            "source": "remote",
+            "isPromotion": 1,
+            "rank": 1
+        },
+        {
+            "name": "Remote Stick Shinobi Fighting",
+            "score": 250,
+            "icon": "https://pub-fcdda0d64de44d99988d15c3e7d66a68.r2.dev/game_2.png",
+            "apkUrl": "https://cdn.pixelshippuden.com/pixelshippuden_f_release_1008201500.apk",
+            "version": "1.0",
+            "source": "remote",
+            "isPromotion": 1,
+            "rank": 2
+        },
+        {
+            "name": "Remote 3D Tile Match",
+            "score": 100,
+            "icon": "https://pub-fcdda0d64de44d99988d15c3e7d66a68.r2.dev/game_3.png",
+            "apkUrl": "https://cdn.pixelshippuden.com/pixelshippuden_f_release_1008201500.apk",
+            "version": "1.0",
+            "source": "remote",
+            "isPromotion": 0,
+            "rank": 3
+        },
+        {
+            "name": "Remote Supreme Duelist",
+            "score": 100,
+            "icon": "https://pub-fcdda0d64de44d99988d15c3e7d66a68.r2.dev/game_4.png",
+            "apkUrl": "https://cdn.pixelshippuden.com/pixelshippuden_f_release_1008201500.apk",
+            "version": "1.0",
+            "source": "remote",
+            "isPromotion": 0,
+            "rank": 4
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "174996019037",
+    "project_id": "fun-sphere-app",
+    "storage_bucket": "fun-sphere-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174996019037:android:ae0698d410390e86173ab4",
+        "android_client_info": {
+          "package_name": "com.new.fun.sphere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM6G3s29yyGFpDIiY8kY7HoQFObCvaL4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

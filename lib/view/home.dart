@@ -140,9 +140,6 @@ class _HomeState extends State<Home> {
                           snackPosition: SnackPosition.BOTTOM,
                         );
                       }
-                      // installAPK(
-                      //     "https://s3.cn-north-1.amazonaws.com.cn/mtab.kezaihui.com/apk/kylinim/zaihui_kylinim_42.apk",
-                      //     "zaihui_kylinim_42.apk");
                     },
                     child: Text(
                       "play".toUpperCase(),

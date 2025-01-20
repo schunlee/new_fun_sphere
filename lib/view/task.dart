@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_fun_sphere/controller/checkin_controller.dart';
 import 'package:new_fun_sphere/controller/task_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Task extends StatelessWidget {
   Task({super.key});
@@ -447,9 +448,19 @@ class TaskCard extends StatelessWidget {
               height: 40,
               alignment: Alignment.center,
               child: InkWell(
-                onTap: () {
+                onTap: () async {
                   taskController.setTaskDone(taskId);
                   taskController.fetchTasks();
+                  final Uri url = Uri.parse(apkUrl);
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url);
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          "Could not launch $url",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      }
                 },
                 child: Chip(
                   backgroundColor: const Color.fromRGBO(255, 124, 42, 1),

@@ -349,8 +349,8 @@ class CompletedTask extends StatelessWidget {
                         image: AssetImage('assets/images/done_btn_bg.png'))),
                 child: TextButton(
                     onPressed: () {
-                      taskController.setTaskUnDone(taskId); // 临时打开
-                      taskController.fetchDoneTasks(); // 临时打开
+                      // taskController.setTaskUnDone(taskId); // 临时打开
+                      // taskController.fetchDoneTasks(); // 临时打开
                     },
                     child: const Text(
                       "Done",

@@ -19,6 +19,7 @@ class Account extends StatelessWidget {
   void _showLoginRegisterBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return LoginRegisterBottomSheet();
       },
@@ -84,8 +85,8 @@ class Account extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                children: [
+              // Column(
+              //   children: [
                   // Container(
                   //     margin: const EdgeInsets.fromLTRB(10.0, 60.0, 0, 0),
                   //     decoration: const BoxDecoration(
@@ -102,25 +103,25 @@ class Account extends StatelessWidget {
                   //               fontWeight: FontWeight.w900,
                   //               color: Color.fromRGBO(131, 147, 254, 1)),
                   //         ))),
-                  Container(
-                      margin: const EdgeInsets.fromLTRB(30.0, 50.0, 0, 0),
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/signin_btn_bg.png'))),
-                      child: TextButton(
-                          onPressed: () {
-                            authController.signOut();
-                            Get.back();
-                          },
-                          child: const Text(
-                            '临时',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                color: Color.fromRGBO(131, 147, 254, 1)),
-                          ))),
-                ],
-              )
+                  // Container(
+                  //     margin: const EdgeInsets.fromLTRB(30.0, 50.0, 0, 0),
+                  //     decoration: const BoxDecoration(
+                  //         image: DecorationImage(
+                  //             image: AssetImage(
+                  //                 'assets/images/signin_btn_bg.png'))),
+                  //     child: TextButton(
+                  //         onPressed: () {
+                  //           authController.signOut();
+                  //           Get.back();
+                  //         },
+                  //         child: const Text(
+                  //           '临时',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.w900,
+                  //               color: Color.fromRGBO(131, 147, 254, 1)),
+                  //         ))),
+                // ],
+              // )
             ],
           ),
         ),
@@ -231,8 +232,8 @@ class Account extends StatelessWidget {
                       if (user != null && user.email != null) {
                         Get.to(Withdraw());
                       } else {
-                        Get.to(Withdraw());
-                        // _showLoginRegisterBottomSheet(context);
+                        // Get.to(Withdraw());
+                        _showLoginRegisterBottomSheet(context);
                       }
                     },
                     child: const Text(

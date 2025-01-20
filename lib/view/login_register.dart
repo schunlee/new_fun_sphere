@@ -90,11 +90,19 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
           height: 60,
           child: TextFormField(
             controller: loginEmailController,
-            decoration: const InputDecoration(
+            autofocus: true,
+            decoration: InputDecoration(
               hintText: 'Email',
-              border: InputBorder.none,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
               filled: true,
-              labelStyle: TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.white),
               fillColor: Colors.black12,
             ),
           ),
@@ -104,12 +112,20 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
           width: 300,
           height: 45,
           child: TextFormField(
+            autofocus: true,
             controller: loginPwdController,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Password',
-              border: InputBorder.none,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
               filled: true,
-              labelStyle: TextStyle(color: Colors.white),
+              labelStyle: const TextStyle(color: Colors.white),
               fillColor: Colors.black12,
             ),
             // obscureText: true,
@@ -117,9 +133,9 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
         ),
         Row(
           children: [
-            const SizedBox(width: 18, height: 80),
+            const SizedBox(width: 40.0, height: 80),
             Checkbox(
-                value: true, //authController.isChecked.value,
+                value: authController.isChecked.value,
                 side: const BorderSide(color: Colors.white),
                 fillColor: MaterialStateProperty.resolveWith((states) {
                   return const Color.fromRGBO(127, 204, 224, 1);
@@ -192,6 +208,7 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
           width: 300,
           height: 45,
           child: TextField(
+            autofocus: true,
             controller: regEmailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
@@ -234,7 +251,7 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
         ),
         Row(
           children: [
-            const SizedBox(width: 18, height: 80),
+            const SizedBox(width: 40, height: 80),
             Checkbox(
                 value: authController.isChecked.value,
                 side: const BorderSide(color: Colors.white),

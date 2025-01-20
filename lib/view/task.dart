@@ -160,23 +160,23 @@ class Task extends StatelessWidget {
                           ));
                     }),
                   ),
-                  Container(
-                      width: 50,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/checkin_btn_bg.png'))),
-                      child: TextButton(
-                          onPressed: () {
-                            checkController.deleteRecord();
-                          },
-                          child: const Text(
-                            "临时",
-                            style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromRGBO(130, 150, 254, 1)),
-                          ))),
+                  // Container(
+                  //     width: 50,
+                  //     decoration: const BoxDecoration(
+                  //         image: DecorationImage(
+                  //             image: AssetImage(
+                  //                 'assets/images/checkin_btn_bg.png'))),
+                  //     child: TextButton(
+                  //         onPressed: () {
+                  //           checkController.deleteRecord();
+                  //         },
+                  //         child: const Text(
+                  //           "临时",
+                  //           style: TextStyle(
+                  //               fontSize: 10.0,
+                  //               fontWeight: FontWeight.bold,
+                  //               color: Color.fromRGBO(130, 150, 254, 1)),
+                  //         ))),
                   const SizedBox(
                     width: 5.0,
                   ),

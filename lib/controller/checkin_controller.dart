@@ -39,5 +39,6 @@ class CheckinController extends GetxController {
     // 删除签到记录
     await CheckinDbHelper.instance.deleteAll();
     recordList.clear();
+    fetchRecords();
   }
 }

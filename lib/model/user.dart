@@ -1,30 +1,60 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class WithdrawRecord {
+  String withdrawTime; // 提现时间
+  int withdrawScore; // 提现金额
+  int withdrawBalance; // 提现余额
+
+  WithdrawRecord(
+      {required this.withdrawTime,
+      required this.withdrawScore,
+      required this.withdrawBalance});
+
+  // 从 Firestore 文档中创建 WithdrawRecord
+  WithdrawRecord.fromDocument(Map<String, dynamic> data)
+      : withdrawTime = data['withdrawTime'] ?? '',
+        withdrawScore = data['withdrawScore'] ?? '',
+        withdrawBalance = data['withdrawBalance'] ?? '';
+}
+
 class User {
-  String? userId;
-  String? name;
-  String? email; // PayPal account
-  int? withdrawCount; // 提现次数
-  int? score; // 获得的积分，可清空
-  String? lastWithdrawDate; // 上次提现日期
-  int? historyScore; // 历史获得的积分，不可清空
+  String? userId; // 用户 ID
+  String? name; // 用户名
+  String? email; // PayPal 账户
+  int? accountBalance; // 提现余额
+  List<WithdrawRecord> withdrawRecords; // 提现记录
 
-  User(
-      {this.userId,
-      this.name,
-      this.email,
-      this.lastWithdrawDate = '',
-      this.withdrawCount = 0,
-      this.score = 0,
-      this.historyScore = 0});
+  User({
+    this.userId,
+    this.name,
+    this.email,
+    this.accountBalance,
+    List<WithdrawRecord>? withdrawRecords,
+  }) : withdrawRecords = withdrawRecords ?? [];
 
-  User.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
-    userId = documentSnapshot.id;
-    name = documentSnapshot.get("name");
-    email = documentSnapshot["email"];
-    score = documentSnapshot.get("score");
-    withdrawCount = documentSnapshot.get("withdrawCount");
-    lastWithdrawDate = documentSnapshot.get("lastWithdrawDate");
-    historyScore = documentSnapshot.get("historyScore");
+  User.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot})
+      : userId = documentSnapshot.id,
+        name = documentSnapshot.get("name"),
+        email = documentSnapshot.get("email"),
+        accountBalance = documentSnapshot.get("account_balance"),
+        withdrawRecords =
+            (documentSnapshot.get("withdraw_records") as List<dynamic>?)
+                    ?.map((record) => WithdrawRecord.fromDocument(record))
+                    .toList() ??
+                [];
+
+  // 可选：方法将用户对象转换为 Map 以便存入 Firestore
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'withdraw_records': withdrawRecords
+          .map((record) => {
+                'withdrawTime': record.withdrawTime,
+                'withdrawScore': record.withdrawScore,
+                'withdrawBalance': record.withdrawBalance,
+              })
+          .toList(),
+    };
   }
 }

@@ -44,22 +44,22 @@ class UserController extends GetxController {
     return await userService.getUser(uid);
   }
 
-  Future<User> addRecord(int newStore, String uid) async {
+  Future<User> addRecord(int withdrawStore, String uid) async {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 
     User user = await userService.getUser(uid);
-    int newHisScore = user.historyScore! + newStore;
-    int newScore = newStore;
-    int newWithdrawCount = user.withdrawCount! + 1;
-    userService.updateScore(newStore, uid);
-    await userService.updateUserInfo(
-        newHisScore, newStore, newWithdrawCount, formattedDate, uid);
 
-    user.score = newScore;
-    user.historyScore = newHisScore;
-    user.lastWithdrawDate = formattedDate;
-    user.withdrawCount = newWithdrawCount;
+    int newWithdrawBalance = ((user.accountBalance ?? 0)) - withdrawStore;
+    await userService.addUserWithdrawRecord(
+        newWithdrawBalance, withdrawStore, formattedDate, uid);
+
+    user.accountBalance = newWithdrawBalance;
+    user.withdrawRecords.add(WithdrawRecord(
+      withdrawBalance: withdrawStore,
+      withdrawScore: withdrawStore,
+      withdrawTime: formattedDate,
+    ));
 
     taskController.setAllTasksUnDone();
     checkController.deleteRecord();

@@ -15,10 +15,8 @@ class UserService {
       await _firestore.collection("users").doc(user.userId).set({
         "name": user.name,
         "email": user.email,
-        "score": user.score,
-        "withdrawCount": user.withdrawCount,
-        "historyScore": user.historyScore,
-        "lastWithdrawDate": user.lastWithdrawDate
+        'withdraw_records': [],
+        "account_balance": 0,
       });
       return true;
     } catch (e) {
@@ -40,25 +38,40 @@ class UserService {
     }
   }
 
-  Future<bool> updateScore(int newValue, String uid) async {
-    try {
-      _firestore.collection("users").doc(uid).update({"score": newValue});
-      return true;
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
-  }
-
-  Future<bool> updateUserInfo(int newHisScore, int newScore, int withdrawCount,
+  Future<bool> addUserWithdrawRecord(int withdrawBalance, int withdrawScore,
       String formattedDate, String uid) async {
     try {
-      _firestore.collection("users").doc(uid).update({
-        "historyScore": newHisScore,
-        "lastWithdrawDate": formattedDate,
-        "score": newScore,
-        "withdrawCount": withdrawCount
+      // 获取用户文档
+      DocumentReference userDoc = _firestore.collection("users").doc(uid);
+
+      // 开始一个事务来安全地更新记录
+      await _firestore.runTransaction((transaction) async {
+        // 获取用户文档快照
+        DocumentSnapshot userSnapshot = await transaction.get(userDoc);
+
+        if (!userSnapshot.exists) {
+          // 如果用户文档不存在，返回 false
+          return false;
+        }
+
+        // 获取当前的 withdrawRecords
+        List<dynamic> currentWithdrawRecords =
+            userSnapshot.get('withdraw_records') ?? [];
+
+        // 添加新的提现记录
+        currentWithdrawRecords.add({
+          "withdrawTime": formattedDate,
+          "withdrawScore": withdrawScore,
+          "withdrawBalance": withdrawBalance,
+        });
+
+        // 更新用户文档
+        transaction.update(userDoc, {
+          'withdraw_records': currentWithdrawRecords,
+          'account_balance': withdrawBalance,
+        });
       });
+
       return true;
     } catch (e) {
       debugPrint(e.toString());

@@ -10,6 +10,7 @@ import 'package:new_fun_sphere/firebase_options.dart';
 import 'package:new_fun_sphere/view/account.dart';
 import 'package:new_fun_sphere/view/home.dart';
 import 'package:new_fun_sphere/view/task.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -74,12 +75,29 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _showShowCase();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 1), () {
-        ShowCaseWidget.of(context).startShowCase([_one]);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Future.delayed(const Duration(seconds: 1), () {
+    //     ShowCaseWidget.of(context).startShowCase([_one]);
+    //   });
+    // });
+  }
+
+  Future<void> _showShowCase() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool hasShownShowCase = prefs.getBool('hasShownShowCase') ?? false;
+
+    if (!hasShownShowCase) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Future.delayed(const Duration(seconds: 1), () {
+          ShowCaseWidget.of(context).startShowCase([_one]);
+          prefs.setBool('hasShownShowCase', true);
+        });
       });
-    });
+    }else{
+      navigationController.isLock.value = false;
+    }
   }
 
   final NavigationController navigationController =

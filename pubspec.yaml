@@ -50,6 +50,7 @@ dependencies:
       url: https://github.com/BenjaminHalko/flutter_install_plugin.git
       ref: cf08af829f4a4145634f8a047108f505fdbe5eaa # commit hash
   url_launcher: ^6.3.1
+  shared_preferences: ^2.3.5
 
 
   # The following adds the Cupertino Icons font to your application.

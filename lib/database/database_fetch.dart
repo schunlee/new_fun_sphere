@@ -68,7 +68,8 @@ class CheckinDbHelper {
           CREATE TABLE $table (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             score INTEGER NOT NULL,
-            checkinDate TEXT NOT NULL
+            checkinDate TEXT NOT NULL,
+            withdrawFlag BOOL NOT NULL
           );
           ''');
   }
@@ -100,6 +101,14 @@ class CheckinDbHelper {
     // 删除签到记录
     Database db = await instance.database;
     var res = await db.delete(table);
+    return res;
+  }
+
+  Future<int> updateCheckinStatus(int id, {bool withdrawFlag = true}) async {
+    // 完成任务后更新状态
+    Database db = await instance.database;
+    var res = await db.update(table, {'withdrawFlag': withdrawFlag},
+        where: "id = ?", whereArgs: [id]);
     return res;
   }
 }

@@ -52,14 +52,25 @@ class Task {
 class Checkin {
   String checkinDate; // 签到日期
   int score; // 积分
+  int withdrawFlag;
 
-  Checkin({required this.checkinDate, required this.score});
+  Checkin(
+      {required this.checkinDate,
+      required this.score,
+      this.withdrawFlag = 0});
 
   Map<String, dynamic> toMap() {
-    return {'checkinDate': checkinDate, 'score': score};
+    return {
+      'checkinDate': checkinDate,
+      'score': score,
+      'withdrawFlag': withdrawFlag
+    };
   }
 
   factory Checkin.fromMap(Map<String, dynamic> map) {
-    return Checkin(checkinDate: map['checkinDate'], score: map['score']);
+    return Checkin(
+        checkinDate: map['checkinDate'],
+        score: map['score'],
+        withdrawFlag: map['withdrawFlag']);
   }
 }

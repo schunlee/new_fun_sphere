@@ -22,6 +22,7 @@ class User {
   String? name; // 用户名
   String? email; // PayPal 账户
   int? accountBalance; // 提现余额
+  String? lastWithdrawDate; // 上次提现日期
   List<WithdrawRecord> withdrawRecords; // 提现记录
 
   User({
@@ -29,6 +30,7 @@ class User {
     this.name,
     this.email,
     this.accountBalance,
+    this.lastWithdrawDate,
     List<WithdrawRecord>? withdrawRecords,
   }) : withdrawRecords = withdrawRecords ?? [];
 
@@ -37,6 +39,7 @@ class User {
         name = documentSnapshot.get("name"),
         email = documentSnapshot.get("email"),
         accountBalance = documentSnapshot.get("account_balance"),
+        lastWithdrawDate = documentSnapshot.get("last_withdraw_date"),
         withdrawRecords =
             (documentSnapshot.get("withdraw_records") as List<dynamic>?)
                     ?.map((record) => WithdrawRecord.fromDocument(record))
@@ -48,6 +51,8 @@ class User {
     return {
       'name': name,
       'email': email,
+      'account_balance': accountBalance,
+      'last_withdraw_date': lastWithdrawDate,
       'withdraw_records': withdrawRecords
           .map((record) => {
                 'withdrawTime': record.withdrawTime,

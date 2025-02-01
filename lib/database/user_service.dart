@@ -18,6 +18,7 @@ class UserService {
         "email": user.email,
         'withdraw_records': [],
         "account_balance": 0,
+        "last_withdraw_date": "",
       });
       return true;
     } catch (e) {
@@ -42,7 +43,7 @@ class UserService {
   }
 
   Future<void> addUserWithdrawRecord(int withdrawBalance, int withdrawScore,
-      String formattedDate, String uid) async {
+      String formattedDate, String formattedTime, String uid) async {
       // 获取用户文档
       DocumentReference userDoc = _firestore.collection("users").doc(uid);
 
@@ -61,7 +62,7 @@ class UserService {
 
         // 添加新的提现记录
         currentWithdrawRecords.add({
-          "withdrawTime": formattedDate,
+          "withdrawTime": formattedTime,
           "withdrawScore": withdrawScore,
           "withdrawBalance": withdrawBalance,
         });
@@ -69,37 +70,9 @@ class UserService {
         // 更新用户文档
         transaction.update(userDoc, {
           'withdraw_records': currentWithdrawRecords,
+          'last_withdraw_date': formattedDate,
           'account_balance': withdrawBalance,
         });
       });
-  }
-
-  Future<bool> updateUserWithdrawBalance(
-      int withdrawBalance, String uid) async {
-    try {
-      // 获取用户文档
-      DocumentReference userDoc = _firestore.collection("users").doc(uid);
-
-      // 开始一个事务来安全地更新记录
-      await _firestore.runTransaction((transaction) async {
-        // 获取用户文档快照
-        DocumentSnapshot userSnapshot = await transaction.get(userDoc);
-
-        if (!userSnapshot.exists) {
-          // 如果用户文档不存在，返回 false
-          return false;
-        }
-
-        // 更新用户文档
-        transaction.update(userDoc, {
-          'account_balance': withdrawBalance,
-        });
-      });
-
-      return true;
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
   }
 }

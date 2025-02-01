@@ -12,7 +12,8 @@ class AuthController extends GetxController {
 
   final Rx<fauth.User?> _firebaseUser =
       Rx<fauth.User?>(fauth.FirebaseAuth.instance.currentUser);
-  var isChecked = false.obs;
+  var isRegChecked = false.obs;
+  var isLoginChecked = false.obs;
 
   fauth.User? get user => _firebaseUser.value;
 

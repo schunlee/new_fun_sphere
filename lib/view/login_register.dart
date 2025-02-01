@@ -135,14 +135,14 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
           children: [
             const SizedBox(width: 40.0, height: 80),
             Checkbox(
-                value: authController.isChecked.value,
+                value: authController.isLoginChecked.value,
                 side: const BorderSide(color: Colors.white),
                 fillColor: MaterialStateProperty.resolveWith((states) {
                   return const Color.fromRGBO(127, 204, 224, 1);
                 }),
                 checkColor: Colors.white,
                 onChanged: (bool? value) {
-                  authController.isChecked.value = value ?? false;
+                  authController.isLoginChecked.value = value ?? false;
                 }),
             const Text("I Agree", style: TextStyle(color: Colors.white)),
           ],
@@ -154,6 +154,14 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)))),
             onPressed: () async {
+              if (!authController.isLoginChecked.value) {
+                Get.snackbar(
+                  "Attention",
+                  "Please agree to the terms of service",
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+                return;
+              }
               bool isLogin = await authController.login(
                   loginEmailController.text, loginPwdController.text);
               if (Get.isSnackbarOpen) {
@@ -255,14 +263,14 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
           children: [
             const SizedBox(width: 40, height: 80),
             Checkbox(
-                value: authController.isChecked.value,
+                value: authController.isRegChecked.value,
                 side: const BorderSide(color: Colors.white),
                 fillColor: MaterialStateProperty.resolveWith((states) {
                   return const Color.fromRGBO(127, 204, 224, 1);
                 }),
                 checkColor: Colors.white,
                 onChanged: (bool? value) {
-                  authController.isChecked.value = value ?? false;
+                  authController.isRegChecked.value = value ?? false;
                 }),
             const Text("I Agree", style: TextStyle(color: Colors.white)),
           ],
@@ -274,6 +282,14 @@ class LoginRegisterBottomSheet extends GetWidget<AuthController> {
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)))),
             onPressed: () async {
+              if (!authController.isRegChecked.value) {
+                Get.snackbar(
+                  "Attention",
+                  "Please agree to the terms of service",
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+                return;
+              }
               bool isReg = await authController.createUser(
                   regNameController.text,
                   regEmailController.text,

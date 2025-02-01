@@ -58,15 +58,24 @@ class UserController extends GetxController {
   Future<User> addRecord(
       int newEarnedScore, int withdrawScore, String uid) async {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+    String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
     User user = await userService.getUser(uid);
     // 点击withdraw按钮，赚取的积分就会记录在user.accountBalance，无论是否有PayPal withdraw行为
+    if(user.lastWithdrawDate == formattedDate){
+      Get.snackbar(
+                "Attention",
+                "You have already withdrawn today",
+                snackPosition: SnackPosition.BOTTOM,
+              );
+      return user;
+    }
     int newWithdrawBalance =
         ((user.accountBalance ?? 0)) + newEarnedScore - withdrawScore;
     try {
       await userService.addUserWithdrawRecord(
-          newWithdrawBalance, withdrawScore, formattedDate, uid);
+          newWithdrawBalance, withdrawScore, formattedDate, formattedTime, uid);
     } catch (e) {
       debugPrint(e.toString());
       Get.snackbar(
@@ -82,7 +91,6 @@ class UserController extends GetxController {
       withdrawScore: withdrawScore,
       withdrawTime: formattedDate,
     ));
-
     taskController.setAllTasksUnDone();
     checkController.deleteRecord(); // 不再重新签到
     taskController.totalScore.value = 0;

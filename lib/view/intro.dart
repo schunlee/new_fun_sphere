@@ -113,11 +113,11 @@ class Intro extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
-              'Under normal circumstances, it usually takes only a few seconds'
-              'to convert coins to PayPal balance. You can change or cancel'
+              'Under normal circumstances, it usually takes only a few seconds '
+              'to convert coins to PayPal balance. You can change or cancel '
               'this authorization at any time from the "Account" tab. The amount '
-              'will be automatically deducted after the withdrawal application is submitted.'
-              'The manual review process may take 24 hours. Withdrawals are limited to 1 time per day.'
+              'will be automatically deducted after the withdrawal application is submitted. '
+              'The manual review process may take 24 hours. Withdrawals are limited to 1 time per day. '
               'You can convert coins to PayPal balance and withdraw to your PayPal account.',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),

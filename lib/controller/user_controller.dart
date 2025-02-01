@@ -33,9 +33,8 @@ class UserController extends GetxController {
           .snapshots()
           .listen((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
-          user = User.fromDocumentSnapshot(
-              documentSnapshot: documentSnapshot);
-          debugPrint('New User >>> ' + user.accountBalance.toString());
+          user = User.fromDocumentSnapshot(documentSnapshot: documentSnapshot);
+          debugPrint('New User >>> ${user.accountBalance.toString()}');
         }
       });
     }
@@ -65,9 +64,18 @@ class UserController extends GetxController {
     // 点击withdraw按钮，赚取的积分就会记录在user.accountBalance，无论是否有PayPal withdraw行为
     int newWithdrawBalance =
         ((user.accountBalance ?? 0)) + newEarnedScore - withdrawScore;
-    var test = await userService.addUserWithdrawRecord(
-        newWithdrawBalance, withdrawScore, formattedDate, uid);
-
+    try {
+      await userService.addUserWithdrawRecord(
+          newWithdrawBalance, withdrawScore, formattedDate, uid);
+    } catch (e) {
+      debugPrint(e.toString());
+      Get.snackbar(
+                "Error",
+                "Withdraw Failed >>> ${e.toString()}",
+                snackPosition: SnackPosition.BOTTOM,
+              );
+      return user;
+    }
     user.accountBalance = newWithdrawBalance;
     user.withdrawRecords.add(WithdrawRecord(
       withdrawBalance: withdrawScore,

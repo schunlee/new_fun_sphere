@@ -48,7 +48,7 @@ class Withdraw extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(15.0, 0, 0, 0),
                   child: Obx(() {
                     return Text(
-                      '\$${userController.user.accountBalance! / 1000}',
+                      '\$${(userController.user.accountBalance! / 1000).toStringAsFixed(2)}',
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 13.0,

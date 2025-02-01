@@ -41,9 +41,8 @@ class UserService {
     }
   }
 
-  Future<bool> addUserWithdrawRecord(int withdrawBalance, int withdrawScore,
+  Future<void> addUserWithdrawRecord(int withdrawBalance, int withdrawScore,
       String formattedDate, String uid) async {
-    try {
       // 获取用户文档
       DocumentReference userDoc = _firestore.collection("users").doc(uid);
 
@@ -53,8 +52,7 @@ class UserService {
         DocumentSnapshot userSnapshot = await transaction.get(userDoc);
 
         if (!userSnapshot.exists) {
-          // 如果用户文档不存在，返回 false
-          return false;
+          return;
         }
 
         // 获取当前的 withdrawRecords

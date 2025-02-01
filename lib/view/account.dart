@@ -230,7 +230,7 @@ class Account extends StatelessWidget {
                     onPressed: () {
                       var user = userController.user;
                       if (user != null && user.email != null) {
-                        Get.to(Withdraw());
+                        Get.to(() => Withdraw());
                       } else {
                         // Get.to(Withdraw());
                         _showLoginRegisterBottomSheet(context);

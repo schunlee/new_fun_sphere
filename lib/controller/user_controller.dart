@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:new_fun_sphere/controller/auth_controller.dart';
@@ -28,12 +29,13 @@ class UserController extends GetxController {
       // getUser(authController.user!.uid).then((value) => user = value);
       FirebaseFirestore.instance
           .collection('users')
-          .doc(authController.user!.uid) // 替换为实际用户ID
+          .doc(authController.user!.uid)
           .snapshots()
           .listen((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           user = User.fromDocumentSnapshot(
-              documentSnapshot: documentSnapshot); // 更新用户数据
+              documentSnapshot: documentSnapshot);
+          debugPrint('New User >>> ' + user.accountBalance.toString());
         }
       });
     }

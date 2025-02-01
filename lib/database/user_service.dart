@@ -74,12 +74,6 @@ class UserService {
           'account_balance': withdrawBalance,
         });
       });
-
-      return true;
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
   }
 
   Future<bool> updateUserWithdrawBalance(
